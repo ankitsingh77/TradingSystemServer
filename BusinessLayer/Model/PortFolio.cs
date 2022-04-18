@@ -11,6 +11,6 @@ namespace BusinessLayer.Model
         public Guid PortfolioId { get; set; }
         public Guid UserId { get; set; }
         public double Balance { get; set; }
-        public IList<Stock> Stocks { get; set; }
+        public ICollection<Stock> Stocks { get; set; }
     }
 }

@@ -15,10 +15,12 @@ namespace TradingSystemServer
     {
         private readonly UserController userController;
         private readonly PortfolioController portfolioController;
+        private readonly StockController stockController;
         public Service1()
         {
             userController = new UserController();
             portfolioController = new PortfolioController();
+            stockController = new StockController();
         }
         public Guid CreateUser(User userDto)
         {
@@ -74,9 +76,37 @@ namespace TradingSystemServer
             return dto;
         }
 
+        public List<Stock> GetAllStocks()
+        {
+            var stocks = stockController.GetAllStocks();
+            var result = new List<Stock>();
+            foreach (var stock in stocks)
+            {
+                result.Add(ConvertStock(stock));
+            }
+
+            return result;
+        }
+
+        public Guid CreateStock(string name, string symbol, double price, int volume)
+        {
+            return stockController.CreateStock(name, symbol, price, volume);
+        }
+
         private Stock ConvertStock(BusinessLayer.Model.Stock stock1)
         {
-            var stock = new Stock();
+            var stock = new Stock()
+            {
+                StockId = stock1.StockId,
+                StockName = stock1.StockName,
+                StockSymbol = stock1.StockSymbol,
+                Price = stock1.Price,
+                Volume = stock1.Volume,
+                HighPrice = stock1.HighPrice,
+                LowPrice = stock1.LowPrice,
+                OpeningPrice = stock1.OpeningPrice
+            };
+
             return stock;
         }
     }

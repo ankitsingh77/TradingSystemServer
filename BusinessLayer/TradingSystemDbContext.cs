@@ -15,6 +15,18 @@ namespace BusinessLayer
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TradingSystemDbContext, BusinessLayer.Migrations.Configuration>());
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PortFolio>().HasMany<Stock>(s => s.Stocks).WithMany(p => p.PortFolios).Map(pm =>
+            {
+                pm.MapLeftKey("PortfolioId");
+                pm.MapRightKey("StockId");
+                pm.ToTable("PortfolioMap");
+            });
+        }
+
+
         public DbSet<Calendar> Calender { get; set; }
         public DbSet<CustomerBalance> CustomerBalances { get; set; }
         public DbSet<MarketHours> MarketHours { get; set; }

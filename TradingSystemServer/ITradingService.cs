@@ -25,6 +25,12 @@ namespace TradingSystemServer
         [OperationContract]
         PortFolio GetPortFolio(Guid userId);
 
+        [OperationContract]
+        List<Stock> GetAllStocks();
+
+        [OperationContract]
+        Guid CreateStock(string name, string symbol, double price, int volume);
+
         // TODO: Add your service operations here
     }
 

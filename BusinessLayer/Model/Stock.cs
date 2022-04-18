@@ -16,5 +16,7 @@ namespace BusinessLayer.Model
         public double HighPrice { get; set; }
         public double LowPrice { get; set; }
         public double OpeningPrice { get; set; }
+
+        public ICollection<PortFolio> PortFolios { get; set; }
     }
 }

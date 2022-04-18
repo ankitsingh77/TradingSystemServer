@@ -376,6 +376,18 @@ public interface ITradingService
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/GetPortFolio", ReplyAction="http://tempuri.org/ITradingService/GetPortFolioResponse")]
     System.Threading.Tasks.Task<TradingSystemServer.PortFolio> GetPortFolioAsync(System.Guid userId);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/GetAllStocks", ReplyAction="http://tempuri.org/ITradingService/GetAllStocksResponse")]
+    TradingSystemServer.Stock[] GetAllStocks();
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/GetAllStocks", ReplyAction="http://tempuri.org/ITradingService/GetAllStocksResponse")]
+    System.Threading.Tasks.Task<TradingSystemServer.Stock[]> GetAllStocksAsync();
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/CreateStock", ReplyAction="http://tempuri.org/ITradingService/CreateStockResponse")]
+    System.Guid CreateStock(string name, string symbol, double price, int volume);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/CreateStock", ReplyAction="http://tempuri.org/ITradingService/CreateStockResponse")]
+    System.Threading.Tasks.Task<System.Guid> CreateStockAsync(string name, string symbol, double price, int volume);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -450,5 +462,25 @@ public partial class TradingServiceClient : System.ServiceModel.ClientBase<ITrad
     public System.Threading.Tasks.Task<TradingSystemServer.PortFolio> GetPortFolioAsync(System.Guid userId)
     {
         return base.Channel.GetPortFolioAsync(userId);
+    }
+    
+    public TradingSystemServer.Stock[] GetAllStocks()
+    {
+        return base.Channel.GetAllStocks();
+    }
+    
+    public System.Threading.Tasks.Task<TradingSystemServer.Stock[]> GetAllStocksAsync()
+    {
+        return base.Channel.GetAllStocksAsync();
+    }
+    
+    public System.Guid CreateStock(string name, string symbol, double price, int volume)
+    {
+        return base.Channel.CreateStock(name, symbol, price, volume);
+    }
+    
+    public System.Threading.Tasks.Task<System.Guid> CreateStockAsync(string name, string symbol, double price, int volume)
+    {
+        return base.Channel.CreateStockAsync(name, symbol, price, volume);
     }
 }
