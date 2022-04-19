@@ -18,12 +18,10 @@ namespace BusinessLayer
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<PortFolio>().HasMany<Stock>(s => s.Stocks).WithMany(p => p.PortFolios).Map(pm =>
-            {
-                pm.MapLeftKey("PortfolioId");
-                pm.MapRightKey("StockId");
-                pm.ToTable("PortfolioMap");
-            });
+            modelBuilder.Entity<StockPortfolio>().HasKey(sp => new { sp.StockId, sp.ProtfolioId });
+            modelBuilder.Entity<Portfolio>().HasMany(s => s.StockPortfolios).WithRequired().HasForeignKey(sp => sp.ProtfolioId);
+            modelBuilder.Entity<Stock>().HasMany(s => s.StockPortfolios).WithRequired().HasForeignKey(sp => sp.StockId);
+
         }
 
 
@@ -31,10 +29,11 @@ namespace BusinessLayer
         public DbSet<CustomerBalance> CustomerBalances { get; set; }
         public DbSet<MarketHours> MarketHours { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<PortFolio> PortFolios {get;set;}
+        public DbSet<Portfolio> PortFolios {get;set;}
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<StockPortfolio> StockPortfolios { get; set; }
 
     }
 }

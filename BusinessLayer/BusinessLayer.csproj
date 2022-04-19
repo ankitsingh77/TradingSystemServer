@@ -55,12 +55,13 @@
     <Compile Include="Controller\StockController.cs" />
     <Compile Include="Controller\UserController.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\StockPortfolio.cs" />
     <Compile Include="TradingSystemDbContext.cs" />
     <Compile Include="Model\Calendar.cs" />
     <Compile Include="Model\CustomerBalance.cs" />
     <Compile Include="Model\MarketHours.cs" />
     <Compile Include="Model\Order.cs" />
-    <Compile Include="Model\PortFolio.cs" />
+    <Compile Include="Model\Portfolio.cs" />
     <Compile Include="Model\Status.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Transaction.cs" />

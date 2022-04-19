@@ -26,6 +26,18 @@ namespace BusinessLayer.Controller
                         Password = pwd
                     };
 
+                    if (user.Type == UserType.Customer)
+                    {
+                        var portfolio = new Portfolio()
+                        {
+                            PortfolioId = Guid.NewGuid(),
+                            UserId = user.UserId,
+                            Balance = 0,
+                            StockPortfolios = new List<StockPortfolio>()
+                        };
+                        dbContext.PortFolios.Add(portfolio);
+                    }
+
                     dbContext.Users.Add(user);
                     dbContext.SaveChanges();
                 }

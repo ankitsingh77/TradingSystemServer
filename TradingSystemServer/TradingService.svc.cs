@@ -60,17 +60,24 @@ namespace TradingSystemServer
 
         public PortFolio GetPortFolio(Guid userId)
         {
-            var portfolio = portfolioController.GetPortfolio(userId);
+            List<BusinessLayer.Model.StockPortfolio> stockPortfolios;
+            var portfolio = portfolioController.GetPortfolio(userId, out stockPortfolios);
             var dto = new PortFolio()
             {
                 PortfolioId = portfolio.PortfolioId,
-
+                Balance = portfolio.Balance,
+                UserId = portfolio.UserId
             };
 
             dto.Stocks = new List<Stock>();
-            foreach (var stock in portfolio.Stocks)
+            if (stockPortfolios != null)
             {
-                dto.Stocks.Add(ConvertStock(stock));
+                foreach (var stockPortfolio in stockPortfolios)
+                {
+                    var stock = ConvertStock(stockController.GetStock(stockPortfolio.StockId));
+                    stock.Quantity = stockPortfolio.Quantity;
+                    dto.Stocks.Add(stock);
+                }
             }
 
             return dto;
@@ -91,6 +98,22 @@ namespace TradingSystemServer
         public Guid CreateStock(string name, string symbol, double price, int volume)
         {
             return stockController.CreateStock(name, symbol, price, volume);
+        }
+
+        public double AddBalance(Guid userId, double amountToAdd)
+        {
+            return portfolioController.AddBalance(userId, amountToAdd);
+        }
+
+        public bool PurchaseStock(Guid stockId, Guid userId, int quantity)
+        {
+            return stockController.PurchaseStock(stockId, userId, quantity);
+        }
+
+
+        public bool SellStock(Guid stockId, Guid userId, int quantity)
+        {
+            return stockController.SellStock(stockId, userId, quantity);
         }
 
         private Stock ConvertStock(BusinessLayer.Model.Stock stock1)

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Model
 {
-    public class PortFolio
+    public class Portfolio
     {
-        public Guid PortfolioId { get; set; }
+        public virtual Guid PortfolioId { get; set; }
         public Guid UserId { get; set; }
         public double Balance { get; set; }
-        public ICollection<Stock> Stocks { get; set; }
+        public virtual ICollection<StockPortfolio> StockPortfolios { get; set; }
     }
 }

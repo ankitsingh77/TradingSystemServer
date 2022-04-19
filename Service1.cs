@@ -221,6 +221,8 @@ namespace TradingSystemServer
         
         private double PriceField;
         
+        private int QuantityField;
+        
         private System.Guid StockIdField;
         
         private string StockNameField;
@@ -290,6 +292,19 @@ namespace TradingSystemServer
             set
             {
                 this.PriceField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Quantity
+        {
+            get
+            {
+                return this.QuantityField;
+            }
+            set
+            {
+                this.QuantityField = value;
             }
         }
         
@@ -388,6 +403,24 @@ public interface ITradingService
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/CreateStock", ReplyAction="http://tempuri.org/ITradingService/CreateStockResponse")]
     System.Threading.Tasks.Task<System.Guid> CreateStockAsync(string name, string symbol, double price, int volume);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/AddBalance", ReplyAction="http://tempuri.org/ITradingService/AddBalanceResponse")]
+    double AddBalance(System.Guid userId, double amountToAdd);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/AddBalance", ReplyAction="http://tempuri.org/ITradingService/AddBalanceResponse")]
+    System.Threading.Tasks.Task<double> AddBalanceAsync(System.Guid userId, double amountToAdd);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/PurchaseStock", ReplyAction="http://tempuri.org/ITradingService/PurchaseStockResponse")]
+    bool PurchaseStock(System.Guid stockId, System.Guid userId, int quantity);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/PurchaseStock", ReplyAction="http://tempuri.org/ITradingService/PurchaseStockResponse")]
+    System.Threading.Tasks.Task<bool> PurchaseStockAsync(System.Guid stockId, System.Guid userId, int quantity);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/SellStock", ReplyAction="http://tempuri.org/ITradingService/SellStockResponse")]
+    bool SellStock(System.Guid stockId, System.Guid userId, int quantity);
+    
+    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITradingService/SellStock", ReplyAction="http://tempuri.org/ITradingService/SellStockResponse")]
+    System.Threading.Tasks.Task<bool> SellStockAsync(System.Guid stockId, System.Guid userId, int quantity);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -482,5 +515,35 @@ public partial class TradingServiceClient : System.ServiceModel.ClientBase<ITrad
     public System.Threading.Tasks.Task<System.Guid> CreateStockAsync(string name, string symbol, double price, int volume)
     {
         return base.Channel.CreateStockAsync(name, symbol, price, volume);
+    }
+    
+    public double AddBalance(System.Guid userId, double amountToAdd)
+    {
+        return base.Channel.AddBalance(userId, amountToAdd);
+    }
+    
+    public System.Threading.Tasks.Task<double> AddBalanceAsync(System.Guid userId, double amountToAdd)
+    {
+        return base.Channel.AddBalanceAsync(userId, amountToAdd);
+    }
+    
+    public bool PurchaseStock(System.Guid stockId, System.Guid userId, int quantity)
+    {
+        return base.Channel.PurchaseStock(stockId, userId, quantity);
+    }
+    
+    public System.Threading.Tasks.Task<bool> PurchaseStockAsync(System.Guid stockId, System.Guid userId, int quantity)
+    {
+        return base.Channel.PurchaseStockAsync(stockId, userId, quantity);
+    }
+    
+    public bool SellStock(System.Guid stockId, System.Guid userId, int quantity)
+    {
+        return base.Channel.SellStock(stockId, userId, quantity);
+    }
+    
+    public System.Threading.Tasks.Task<bool> SellStockAsync(System.Guid stockId, System.Guid userId, int quantity)
+    {
+        return base.Channel.SellStockAsync(stockId, userId, quantity);
     }
 }

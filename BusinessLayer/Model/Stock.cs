@@ -8,7 +8,7 @@ namespace BusinessLayer.Model
 {
     public class Stock
     {
-        public Guid StockId { get; set; }
+        public virtual Guid StockId { get; set; }
         public string StockName { get; set; }
         public string StockSymbol { get; set; }
         public double Price { get; set; }
@@ -17,6 +17,6 @@ namespace BusinessLayer.Model
         public double LowPrice { get; set; }
         public double OpeningPrice { get; set; }
 
-        public ICollection<PortFolio> PortFolios { get; set; }
+        public virtual ICollection<StockPortfolio> StockPortfolios { get; set; }
     }
 }

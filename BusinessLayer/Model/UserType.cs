@@ -8,8 +8,8 @@ namespace BusinessLayer.Model
 {
     public enum UserType
     {
-        Customer,
         Administrator,
+        Customer,
         InValid
     }
 }

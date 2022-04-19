@@ -31,6 +31,16 @@ namespace TradingSystemServer
         [OperationContract]
         Guid CreateStock(string name, string symbol, double price, int volume);
 
+        [OperationContract]
+        double AddBalance(Guid userId, double amountToAdd);
+
+        [OperationContract]
+        bool PurchaseStock(Guid stockId, Guid userId, int quantity);
+
+
+        [OperationContract]
+        bool SellStock(Guid stockId, Guid userId, int quantity);
+
         // TODO: Add your service operations here
     }
 
@@ -121,5 +131,7 @@ namespace TradingSystemServer
         public double LowPrice { get; set; }
         [DataMember]
         public double OpeningPrice { get; set; }
+        [DataMember]
+        public int Quantity { get; set; }
     }
 }

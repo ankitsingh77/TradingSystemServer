@@ -9,12 +9,28 @@ namespace BusinessLayer.Controller
 {
     public class PortfolioController
     {
-        public PortFolio GetPortfolio(Guid userId)
+        public Portfolio GetPortfolio(Guid userId, out List<StockPortfolio> stockPortfolios)
         {
             using(var dbContext = new TradingSystemDbContext())
             {
-                return dbContext.PortFolios.Where(o => o.UserId == userId).FirstOrDefault();
+                var portfolio = dbContext.PortFolios.Where(o => o.UserId == userId).FirstOrDefault(); ;
+                stockPortfolios = portfolio.StockPortfolios.ToList();
+                return portfolio;
             }
+        }
+
+        public double AddBalance(Guid userId, double amountToAdd)
+        {
+            double balance = 0;
+            using(var dbContext = new TradingSystemDbContext())
+            {
+                var portfolio = dbContext.PortFolios.Where(o => o.UserId == userId).FirstOrDefault();
+                portfolio.Balance += amountToAdd;
+                balance = portfolio.Balance;
+                dbContext.SaveChanges();
+            }
+
+            return balance;            
         }
     }
 }
